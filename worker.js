@@ -24,7 +24,10 @@ function proxy(request, origin) {
   const url = new URL(request.url);
   url.hostname = origin;
   url.protocol = "https:";
-  return fetch(new Request(url.toString(), request));
+  const headers = new Headers(request.headers);
+  headers.set("Host", origin);
+  headers.set("X-Forwarded-Host", new URL(request.url).hostname);
+  return fetch(new Request(url.toString(), { ...request, headers }));
 }
 
 export default {
