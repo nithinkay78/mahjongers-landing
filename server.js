@@ -16,6 +16,10 @@ const MIME = {
   ".txt": "text/plain; charset=utf-8"
 };
 
+// Publication id is not a secret; env var overrides this default.
+const BEEHIIV_PUB_ID = process.env.BEEHIIV_PUBLICATION_ID || "pub_d6bdfb34-1ff5-4d82-b2e8-b4b1ba95dcc1";
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 function readJsonBody(req) {
   return new Promise((resolve) => {
     let body = "";
@@ -30,41 +34,91 @@ function sendJson(res, status, payload) {
   res.end(JSON.stringify(payload));
 }
 
-// Newsletter signup — forwards the email to Beehiiv server-side so the API key
-// never reaches the browser. Set BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID
-// on this service for it to work.
+// Add an email to the Beehiiv newsletter (welcome email + nurture). Returns the
+// subscriber status ("active", "validating", "pending", …) for visibility.
+async function beehiivSubscribe(email, utmMedium) {
+  const apiKey = String(process.env.BEEHIIV_API_KEY || "").trim();
+  if (!apiKey) return { skipped: true };
+  const response = await fetch(`https://api.beehiiv.com/v2/publications/${BEEHIIV_PUB_ID}/subscriptions`, {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email,
+      reactivate_existing: true,
+      send_welcome_email: true,
+      utm_source: "mahjongers.com",
+      utm_medium: utmMedium
+    })
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(`Beehiiv ${response.status}: ${JSON.stringify(data)}`);
+  return { status: data?.data?.status };
+}
+
+// Alert the team that a founder lead came in. No database — this email (plus the
+// Beehiiv subscription for email leads) is the record of the lead.
+async function sendLeadEmail(lead) {
+  const apiKey = String(process.env.RESEND_API_KEY || "").trim();
+  if (!apiKey) return;
+  const recipients = String(process.env.LEAD_NOTIFY_EMAILS || "hi.mahjongers@gmail.com,nithin@move78.in")
+    .split(",").map((e) => e.trim()).filter(Boolean);
+  const lines = [
+    `Name: ${lead.name || "—"}`,
+    `Contact: ${lead.contact || "—"}`,
+    lead.firstSale ? `About: ${lead.firstSale}` : "",
+    `At: ${new Date().toISOString()}`
+  ].filter(Boolean);
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      from: process.env.LEAD_NOTIFY_FROM || "Mahjongers <leads@mahjongers.com>",
+      to: recipients,
+      subject: `New founder-access request: ${lead.name || lead.contact}`,
+      text: `A new founding creator asked for access.\n\n${lines.join("\n")}\n`
+    })
+  });
+  if (!response.ok) throw new Error(`Resend ${response.status}: ${await response.text()}`);
+}
+
+// Newsletter signup — forwards the email to Beehiiv server-side.
 async function handleSubscribe(req, res) {
   const { email } = await readJsonBody(req);
   const clean = String(email || "").trim().toLowerCase();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(clean)) {
-    return sendJson(res, 400, { error: "A valid email is required." });
-  }
-  const apiKey = process.env.BEEHIIV_API_KEY;
-  // Publication id is not a secret; env var overrides this default.
-  const publicationId = process.env.BEEHIIV_PUBLICATION_ID || "pub_d6bdfb34-1ff5-4d82-b2e8-b4b1ba95dcc1";
-  if (!apiKey) {
-    return sendJson(res, 503, { error: "Newsletter is not configured yet." });
-  }
+  if (!EMAIL_RE.test(clean)) return sendJson(res, 400, { error: "A valid email is required." });
+  if (!process.env.BEEHIIV_API_KEY) return sendJson(res, 503, { error: "Newsletter is not configured yet." });
   try {
-    const response = await fetch(`https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`, {
-      method: "POST",
-      headers: { "Authorization": `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ email: clean, reactivate_existing: true, send_welcome_email: true, utm_source: "mahjongers.com" })
-    });
-    if (!response.ok) throw new Error(`Beehiiv ${response.status}`);
-    return sendJson(res, 200, { ok: true });
+    const result = await beehiivSubscribe(clean, "newsletter");
+    return sendJson(res, 200, { ok: true, status: result.status });
   } catch {
     return sendJson(res, 502, { error: "Subscription failed. Please try again." });
   }
 }
 
+// Founder-access signup — no database. Alerts the team (Resend) and, for email
+// leads, subscribes them to the newsletter (Beehiiv). Both fire-and-forget.
+async function handleFounderAccess(req, res) {
+  const body = await readJsonBody(req);
+  const contact = String(body.contact || body.email || "").trim().slice(0, 160);
+  if (!contact) return sendJson(res, 400, { error: "An email or WhatsApp number is required." });
+  const lead = {
+    name: String(body.name || "").trim().slice(0, 90),
+    contact,
+    firstSale: String(body.firstSale || "").trim().slice(0, 800)
+  };
+  sendLeadEmail(lead).catch((error) => console.error("Founder email alert failed:", error.message));
+  if (EMAIL_RE.test(contact.toLowerCase())) {
+    beehiivSubscribe(contact.toLowerCase(), "founder-form").catch((error) => console.error("Founder Beehiiv subscribe failed:", error.message));
+  }
+  return sendJson(res, 201, { ok: true });
+}
+
 http.createServer((req, res) => {
   const pathname = new URL(req.url, "http://localhost").pathname;
 
-  if (req.method === "POST" && pathname === "/subscribe") {
-    handleSubscribe(req, res);
-    return;
-  }
+  if (req.method === "POST" && pathname === "/subscribe") { handleSubscribe(req, res); return; }
+  if (req.method === "POST" && pathname === "/founder-access") { handleFounderAccess(req, res); return; }
+
   if (req.method !== "GET" && req.method !== "HEAD") {
     res.writeHead(405); res.end(); return;
   }
