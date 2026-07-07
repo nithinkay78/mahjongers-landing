@@ -1,0 +1,11 @@
+name = "mahjongers-router"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+account_id = "9c606048aae2b2853a528a201a5bb405"
+
+routes = [
+  { pattern = "mahjongers.com/*", zone_name = "mahjongers.com" }
+]
+
+[vars]
+PAGES_ORIGIN = "mahjongers-landing.pages.dev"

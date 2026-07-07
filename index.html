@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script defer data-website-id="dfid_NuT1rP5EwI86MnpsZ6DKM" data-domain="mahjongers.com" src="https://datafa.st/js/script.js"></script>
+  <title>Mahjongers — The game you love can pay you back</title>
+  <meta name="description" content="Mahjongers is a monetisation platform for mahjong creators. Paid classes, online courses, live sessions, and your own boutique — from one beautiful website that's yours. Payments go straight to your account.">
+  <link rel="canonical" href="https://mahjongers.com/">
+  <meta name="theme-color" content="#F4F1EC">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mahjongers — The game you love can pay you back">
+  <meta property="og:description" content="Paid classes, online courses, live sessions, and your own boutique — from one beautiful website that's yours.">
+  <meta property="og:url" content="https://mahjongers.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mahjongers — The game you love can pay you back">
+  <meta name="twitter:description" content="A monetisation platform for mahjong teachers, hosts, and creators.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://mahjongers.com/#organization",
+        "name": "Mahjongers",
+        "url": "https://mahjongers.com/",
+        "logo": "https://mahjongers.com/assets/favicon.svg",
+        "description": "A monetisation platform for mahjong creators — paid classes, online courses, live sessions, and creator boutiques."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://mahjongers.com/#website",
+        "url": "https://mahjongers.com/",
+        "name": "Mahjongers",
+        "publisher": { "@id": "https://mahjongers.com/#organization" }
+      }
+    ]
+  }
+  </script>
+  <style>
+    html, body { margin: 0; padding: 0; background: #F4F1EC; }
+    body { -webkit-font-smoothing: antialiased; }
+    * { box-sizing: border-box; }
+    ::selection { background: #F2C4B4; color: #241D18; }
+    a { text-decoration: none; }
+
+    @keyframes mj-blob-a { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(60px, 40px) scale(1.15); } }
+    @keyframes mj-blob-b { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(-50px, -30px) scale(1.1); } }
+
+    [data-reveal] { transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+    [data-reveal="out"] { opacity: 0; transform: translateY(32px); }
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal] { transition: none; }
+      [data-reveal="out"] { opacity: 1; transform: none; }
+      .blob { animation: none !important; }
+    }
+
+    .page {
+      font-family: 'Manrope', -apple-system, sans-serif;
+      color: #241D18;
+      position: relative;
+      overflow: clip;
+      background: linear-gradient(175deg, #FBF3E8, #F3EDF6 40%, #EAF3EC 75%, #FBEFE4);
+    }
+
+    .blob { position: absolute; border-radius: 50%; pointer-events: none; }
+
+    /* Nav */
+    .nav {
+      position: sticky; top: 12px; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      padding: 16px clamp(20px,4vw,48px); margin: 16px clamp(12px,3vw,40px) 0;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.7); border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(36,29,24,0.08);
+    }
+    .logo { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: #241D18; }
+    .logo em { font-style: normal; color: #E0704A; }
+    .nav nav { display: flex; align-items: center; flex-wrap: wrap; gap: clamp(14px,3vw,32px); }
+    .nav-link { font-size: 14px; font-weight: 600; color: #6B5D52; transition: color .2s; }
+    .nav-link:hover { color: #241D18; }
+    .cta-gradient {
+      font-size: 14px; font-weight: 700; color: #FFFFFF;
+      background: linear-gradient(120deg, #FF8A4D, #F04E7C 60%, #C445B8);
+      padding: 12px 26px; border-radius: 999px;
+      box-shadow: 0 8px 22px rgba(240,78,124,0.45), inset 0 1px 0 rgba(255,255,255,0.55);
+      transition: filter .2s;
+    }
+    .cta-gradient:hover { filter: brightness(1.08); }
+
+    /* Hero */
+    .hero {
+      position: relative; display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+      gap: clamp(32px,5vw,64px); align-items: center;
+      padding: clamp(48px,7vw,90px) clamp(20px,5vw,64px) clamp(56px,8vw,100px);
+      max-width: 1380px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 700; color: #B5502C;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.8); border-radius: 999px;
+      padding: 10px 20px; margin-bottom: 28px;
+      box-shadow: 0 4px 14px rgba(36,29,24,0.06);
+    }
+    .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: linear-gradient(180deg, #EE8A5F, #D95F38); display: inline-block; }
+    .hero h1 { font-weight: 800; font-size: clamp(38px,5.5vw,62px); line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 26px; }
+    .grad-text {
+      background: linear-gradient(92deg, #F26430, #E23A78 40%, #9B4FD6 70%, #1F9D62);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero-sub { font-size: clamp(16px,2vw,19px); line-height: 1.6; color: #5C5045; max-width: 520px; margin: 0 0 38px; font-weight: 400; text-wrap: pretty; }
+    .hero-ctas { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .btn-dark {
+      display: inline-block; font-size: 15px; font-weight: 700; color: #FFFFFF;
+      background: linear-gradient(180deg, #3E3229, #241D18);
+      padding: 18px 36px; border-radius: 999px;
+      box-shadow: 0 12px 28px rgba(36,29,24,0.3), inset 0 1px 0 rgba(255,255,255,0.18);
+      transition: transform .2s;
+    }
+    .btn-dark:hover { transform: translateY(-2px); }
+    .btn-glass {
+      display: inline-block; font-size: 15px; font-weight: 700; color: #241D18;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.85); padding: 18px 36px; border-radius: 999px;
+      box-shadow: 0 6px 18px rgba(36,29,24,0.08);
+      transition: background .2s;
+    }
+    .btn-glass:hover { background: rgba(255,255,255,0.85); }
+    .hero-photo-wrap { position: relative; }
+    .hero-photo {
+      position: relative; width: 100%; height: clamp(340px,55vw,540px);
+      border-radius: 40px; overflow: hidden;
+      background: linear-gradient(160deg, #E9DFCE, #D9C8AC);
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 30px 70px rgba(36,29,24,0.18), inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-photo .sheen { position: absolute; top: 0; left: 0; right: 0; height: 120px; background: linear-gradient(180deg, rgba(255,255,255,0.35), transparent); pointer-events: none; }
+    .float-card {
+      position: absolute; bottom: -24px; left: -24px;
+      background: rgba(255,255,255,0.72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.85); border-radius: 20px;
+      padding: 18px 26px; box-shadow: 0 18px 44px rgba(36,29,24,0.14);
+    }
+    .float-card .micro { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #8B7A69; margin-bottom: 4px; }
+    .float-card .big { font-size: 19px; font-weight: 800; background: linear-gradient(92deg, #D95F38, #C2496B); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    @media (max-width: 500px) { .float-card { left: 8px; } }
+
+    /* Mobile nav: just the wordmark and the CTA, on a single thin bar */
+    @media (max-width: 720px) {
+      .nav { flex-wrap: nowrap; padding: 9px 14px; margin: 12px 12px 0; gap: 10px; }
+      .nav-link { display: none; }
+      .nav nav { gap: 0; }
+      .cta-gradient { padding: 10px 20px; }
+    }
+
+    /* Sections shared */
+    .section { position: relative; padding: clamp(48px,7vw,90px) clamp(20px,5vw,64px); }
+    .section-inner { max-width: 1380px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 56px; }
+    .badge-green {
+      display: inline-block; font-size: 13px; font-weight: 700; color: #3E7D5C;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.8); border-radius: 999px; padding: 9px 20px; margin-bottom: 22px;
+    }
+    h2 { font-weight: 800; font-size: clamp(30px,4.5vw,42px); letter-spacing: -0.02em; margin: 0 0 16px; }
+    .section-sub { font-size: 17px; line-height: 1.6; color: #5C5045; max-width: 560px; margin: 0 auto; text-wrap: pretty; }
+
+    /* Mock site */
+    .browser-card {
+      max-width: 960px; margin: 0 auto;
+      background: rgba(255,255,255,0.66); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.9); border-radius: 28px;
+      box-shadow: 0 36px 90px rgba(36,29,24,0.16), inset 0 1px 0 rgba(255,255,255,0.9);
+      overflow: hidden;
+    }
+    .browser-bar { display: flex; align-items: center; gap: 8px; padding: 16px 22px; border-bottom: 1px solid rgba(36,29,24,0.06); }
+    .browser-bar .dot-r { width: 11px; height: 11px; border-radius: 50%; background: #F0907A; }
+    .browser-bar .dot-y { width: 11px; height: 11px; border-radius: 50%; background: #F2C879; }
+    .browser-bar .dot-g { width: 11px; height: 11px; border-radius: 50%; background: #8FD0A5; }
+    .browser-bar .url { margin: 0 auto; font-size: 12px; font-weight: 600; color: #8B7A69; background: rgba(255,255,255,0.7); border-radius: 8px; padding: 5px 24px; }
+    .browser-bar .spacer { width: 49px; }
+    .mock-body { padding: clamp(24px,4.5vw,44px) clamp(18px,4.5vw,52px) clamp(28px,4.5vw,52px); }
+    .mock-top { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 10px; }
+    .mock-brand { font-weight: 800; font-size: 24px; letter-spacing: -0.02em; }
+    .mock-nav { display: flex; gap: 24px; font-size: 12px; font-weight: 700; color: #8B7A69; }
+    .mock-hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(24px,4vw,36px); align-items: center; margin-bottom: 40px; }
+    .mock-hero h3 { font-weight: 800; font-size: 30px; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 14px; }
+    .grad-green { background: linear-gradient(92deg, #3E7D5C, #2E5D44); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .mock-hero p { font-size: 14px; line-height: 1.65; color: #6B5D52; margin: 0 0 20px; }
+    .mock-btn {
+      display: inline-block; font-size: 13px; font-weight: 700; color: #FFFFFF;
+      background: linear-gradient(180deg, #4E9670, #35704F);
+      padding: 12px 26px; border-radius: 999px;
+      box-shadow: 0 8px 18px rgba(62,125,92,0.35), inset 0 1px 0 rgba(255,255,255,0.4);
+    }
+    .mock-img { width: 100%; height: 230px; border-radius: 20px; overflow: hidden; box-shadow: 0 14px 34px rgba(36,29,24,0.14); }
+    .mock-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .mock-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 18px; }
+    .mock-card { background: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.95); border-radius: 18px; padding: 20px; box-shadow: 0 8px 22px rgba(36,29,24,0.07); }
+    .mock-tag { display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 999px; padding: 4px 12px; margin-bottom: 10px; }
+    .mock-card .title { font-weight: 700; font-size: 16px; margin-bottom: 5px; }
+    .mock-card .meta { font-size: 13px; font-weight: 500; color: #8B7A69; }
+
+    /* Four ways */
+    .ways-head { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; margin-bottom: 52px; gap: 24px 40px; }
+    .ways-head h2 { margin: 0; }
+    .ways-head p { font-size: 16px; line-height: 1.6; color: #5C5045; max-width: 380px; margin: 0; text-wrap: pretty; }
+    .ways-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 22px; }
+    .way-card {
+      position: relative; border: 1px solid rgba(255,255,255,0.5); border-radius: 26px;
+      padding: 36px 28px 40px; color: #FFFFFF;
+      transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+    }
+    .way-card:hover { transform: translateY(-8px) scale(1.015); }
+    .way-card .sheen { position: absolute; top: 0; left: 0; right: 0; height: 55%; border-radius: 26px 26px 60% 60%; background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.02)); pointer-events: none; }
+    .tile-chip {
+      position: relative; width: 56px; height: 72px;
+      background: linear-gradient(180deg, #FFFFFF, #F3EDE3); border-radius: 12px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.22), inset 0 -5px 0 rgba(0,0,0,0.1), inset 0 2px 0 #FFFFFF;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 40px; margin-bottom: 24px;
+    }
+    .way-card h3 { font-weight: 800; font-size: 22px; letter-spacing: -0.01em; margin: 0 0 12px; }
+    .way-card p { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.88); margin: 0; font-weight: 500; text-wrap: pretty; }
+    .way-orange { background: linear-gradient(180deg, #FF7E45, #D63A1F); box-shadow: 0 18px 40px rgba(214,58,31,0.45), inset 0 1px 0 rgba(255,255,255,0.4); }
+    .way-green { background: linear-gradient(180deg, #3BB077, #187048); box-shadow: 0 18px 40px rgba(24,112,72,0.45), inset 0 1px 0 rgba(255,255,255,0.4); }
+    .way-pink { background: linear-gradient(180deg, #F45E92, #C2255C); box-shadow: 0 18px 40px rgba(194,37,92,0.45), inset 0 1px 0 rgba(255,255,255,0.4); }
+    .way-violet { background: linear-gradient(180deg, #A968E0, #7434B4); box-shadow: 0 18px 40px rgba(116,52,180,0.45), inset 0 1px 0 rgba(255,255,255,0.4); }
+
+    /* How it works */
+    .jade-panel {
+      max-width: 1380px; margin: 0 auto;
+      background: linear-gradient(150deg, #2C7A55, #1B5E63 55%, #1E4230);
+      border-radius: 36px; padding: clamp(48px,7vw,90px) clamp(24px,5vw,64px);
+      color: #EDF5EE;
+      box-shadow: 0 36px 90px rgba(27,94,99,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+      position: relative; overflow: hidden;
+    }
+    .jade-panel .top-sheen { position: absolute; top: 0; left: 0; right: 0; height: 45%; background: linear-gradient(180deg, rgba(255,255,255,0.14), transparent); pointer-events: none; }
+    .jade-panel .glow-a { position: absolute; top: -120px; right: -100px; width: 520px; height: 520px; border-radius: 50%; background: radial-gradient(circle, rgba(255,140,80,0.4), transparent 65%); filter: blur(30px); pointer-events: none; }
+    .jade-panel .glow-b { position: absolute; bottom: -140px; left: -80px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(circle, rgba(240,90,150,0.3), transparent 65%); filter: blur(34px); pointer-events: none; }
+    .jade-label { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #9FD0AE; margin-bottom: 18px; text-align: center; position: relative; }
+    .jade-panel h2 { margin: 0 0 72px; text-align: center; position: relative; }
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: clamp(24px,4vw,48px); position: relative; }
+    .step-card {
+      text-align: center;
+      background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.14); border-radius: 24px; padding: 40px 28px;
+    }
+    .step-tile {
+      width: 58px; height: 76px; border-radius: 12px;
+      background: linear-gradient(180deg, #FFFFFF, #EDE6DA);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.3), inset 0 -6px 0 #BFDCC8;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 22px; font-size: 42px; color: #2E5D44;
+    }
+    .step-num { font-size: 13px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #9FD0AE; margin-bottom: 10px; }
+    .step-card h3 { font-weight: 700; font-size: 22px; margin: 0 0 12px; }
+    .step-card p { font-size: 14px; line-height: 1.65; color: #C4DCC9; margin: 0 auto; max-width: 300px; font-weight: 500; text-wrap: pretty; }
+
+    /* FAQ */
+    .faq-wrap { max-width: 880px; margin: 0 auto; }
+    .faq-wrap h2 { margin: 0 0 48px; text-align: center; }
+    .faq-list { display: grid; gap: 16px; }
+    .faq-card {
+      background: rgba(255,255,255,0.62); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.85); border-radius: 20px;
+      padding: 26px 30px; box-shadow: 0 10px 28px rgba(36,29,24,0.07);
+    }
+    .faq-q { all: unset; cursor: pointer; display: flex; align-items: baseline; justify-content: space-between; width: 100%; gap: 16px; box-sizing: border-box; }
+    .faq-q .q { font-weight: 700; font-size: 19px; color: #241D18; }
+    .faq-q .mark { font-weight: 800; font-size: 20px; background: linear-gradient(120deg, #F26430, #E23A78); -webkit-background-clip: text; background-clip: text; color: transparent; flex-shrink: 0; }
+    .faq-a { font-size: 15px; line-height: 1.65; color: #5C5045; margin: 14px 0 0; max-width: 640px; font-weight: 500; text-wrap: pretty; }
+    .faq-card[data-open="false"] .faq-a { display: none; }
+
+    /* Founder access */
+    .founder-glow {
+      position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+      width: min(760px, 95vw); height: 90%; border-radius: 40px;
+      background: linear-gradient(120deg, rgba(255,138,77,0.5), rgba(240,78,124,0.45), rgba(150,96,214,0.4));
+      filter: blur(36px); pointer-events: none;
+    }
+    .founder-card {
+      position: relative; max-width: 680px; margin: 0 auto; text-align: center;
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255,255,255,0.95); border-radius: 32px;
+      padding: clamp(36px,6vw,64px) clamp(22px,5vw,56px);
+      box-shadow: 0 36px 90px rgba(36,29,24,0.16), inset 0 1px 0 rgba(255,255,255,0.95);
+    }
+    .founder-badge { display: inline-block; font-size: 13px; font-weight: 700; color: #B5502C; background: rgba(238,138,95,0.14); border-radius: 999px; padding: 9px 20px; margin-bottom: 20px; }
+    .founder-card h2 { font-size: clamp(28px,4.5vw,38px); margin: 0 0 16px; }
+    .founder-card .sub { font-size: 16px; line-height: 1.6; color: #5C5045; margin: 0 0 40px; text-wrap: pretty; }
+    .founder-form { display: grid; gap: 14px; text-align: left; }
+    .founder-form input {
+      font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500;
+      padding: 17px 22px; border: 1px solid rgba(36,29,24,0.12); border-radius: 16px;
+      background: rgba(255,255,255,0.85); color: #241D18; outline: none; width: 100%;
+    }
+    .founder-form input:focus { border-color: #D95F38; }
+    .founder-form button {
+      all: unset; cursor: pointer; text-align: center;
+      font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #FFFFFF;
+      background: linear-gradient(120deg, #FF8A4D, #F04E7C 60%, #C445B8);
+      padding: 18px 36px; border-radius: 999px; margin-top: 6px; box-sizing: border-box;
+      box-shadow: 0 12px 32px rgba(240,78,124,0.5), inset 0 1px 0 rgba(255,255,255,0.55);
+      transition: filter .2s;
+    }
+    .founder-form button:hover { filter: brightness(1.08); }
+    .founder-form button:disabled { cursor: default; filter: saturate(0.6); }
+
+    /* Footer */
+    .footer {
+      position: relative; border-top: 1px solid rgba(36,29,24,0.08);
+      padding: 32px clamp(20px,5vw,64px);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+      max-width: 1380px; margin: 0 auto;
+    }
+    .footer .made { font-size: 13px; font-weight: 500; color: #8B7A69; }
+    .footer-links { display: flex; gap: 26px; font-size: 13px; font-weight: 700; }
+    .footer-links a { color: #6B5D52; transition: color .2s; }
+    .footer-links a:hover { color: #241D18; }
+    .footer-seo {
+      position: relative; max-width: 1380px; margin: 0 auto;
+      padding: 0 clamp(20px,5vw,64px) 28px;
+      display: flex; flex-wrap: wrap; gap: 8px 22px;
+      font-size: 12px; font-weight: 500;
+    }
+    .footer-seo a { color: rgba(139,122,105,0.75); }
+    .footer-seo a:hover { color: #6B5D52; }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ambient colour blobs -->
+  <div class="blob" style="top: -180px; left: -140px; width: 680px; height: 680px; background: radial-gradient(circle, rgba(238,110,60,0.6), transparent 65%); filter: blur(40px); animation: mj-blob-a 14s ease-in-out infinite;"></div>
+  <div class="blob" style="top: 100px; right: -180px; width: 740px; height: 740px; background: radial-gradient(circle, rgba(52,168,110,0.55), transparent 65%); filter: blur(46px); animation: mj-blob-b 17s ease-in-out infinite;"></div>
+  <div class="blob" style="top: 580px; left: 28%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(226,84,128,0.48), transparent 65%); filter: blur(48px); animation: mj-blob-a 19s ease-in-out 2s infinite;"></div>
+  <div class="blob" style="top: 1250px; left: -160px; width: 620px; height: 620px; background: radial-gradient(circle, rgba(242,180,60,0.5), transparent 65%); filter: blur(50px); animation: mj-blob-b 21s ease-in-out 1s infinite;"></div>
+  <div class="blob" style="top: 2000px; right: -140px; width: 640px; height: 640px; background: radial-gradient(circle, rgba(150,96,214,0.4), transparent 65%); filter: blur(52px); animation: mj-blob-a 23s ease-in-out 3s infinite;"></div>
+  <div class="blob" style="bottom: 300px; left: 20%; width: 640px; height: 640px; background: radial-gradient(circle, rgba(238,110,60,0.42), transparent 65%); filter: blur(52px); animation: mj-blob-b 25s ease-in-out 2s infinite;"></div>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a class="logo" href="/">Mahjongers<em>.</em></a>
+    <nav>
+      <a class="nav-link" href="#ways-g">Ways to earn</a>
+      <a class="nav-link" href="#how-g">How it works</a>
+      <a class="nav-link" href="#faq-g">Questions</a>
+      <a class="cta-gradient" href="#founder-g">Start earning</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div>
+      <div class="hero-badge"><span class="dot"></span>For mahjong teachers, hosts &amp; creators</div>
+      <h1>The game you love <span class="grad-text">can pay you back.</span></h1>
+      <p class="hero-sub">Paid classes, online courses, live sessions, and your own boutique — from one beautiful website that's yours.</p>
+      <div class="hero-ctas">
+        <a class="btn-dark" href="#founder-g">Start earning</a>
+        <a class="btn-glass" href="#how-g">See how it works</a>
+      </div>
+    </div>
+    <div class="hero-photo-wrap">
+      <div class="hero-photo">
+        <img src="https://images.unsplash.com/photo-1762311413348-d89e9548997d?fm=jpg&q=70&w=1400&auto=format&fit=crop" alt="Women at a beautifully set mahjong table, warm afternoon light" loading="eager">
+        <div class="sheen"></div>
+      </div>
+      <div class="float-card">
+        <div class="micro">Payments go</div>
+        <div class="big">straight to your account</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOCK CREATOR SITE -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-head" data-reveal>
+        <div class="badge-green">Your website, not ours</div>
+        <h2>A site as lovely as your table</h2>
+        <p class="section-sub">Begin with an elegant template, and change anything in plain language. Here's what one might look like.</p>
+      </div>
+
+      <div class="browser-card" data-reveal>
+        <div class="browser-bar">
+          <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+          <span class="url">thejaderoom.mahjongers.com</span>
+          <span class="spacer"></span>
+        </div>
+        <div class="mock-body">
+          <div class="mock-top">
+            <div class="mock-brand">The Jade Room</div>
+            <div class="mock-nav"><span>Classes</span><span>Courses</span><span>Live</span><span>Boutique</span></div>
+          </div>
+          <div class="mock-hero">
+            <div>
+              <h3>Learn mahjong <span class="grad-green">beautifully.</span></h3>
+              <p>Weekly classes in Mumbai and online, taught over tea at a proper table.</p>
+              <span class="mock-btn">Book a seat</span>
+            </div>
+            <div class="mock-img">
+              <img src="https://images.unsplash.com/photo-1742343913587-783b3f1a6d66?fm=jpg&q=70&w=1000&auto=format&fit=crop" alt="Hands on mahjong tiles" loading="lazy">
+            </div>
+          </div>
+          <div class="mock-cards">
+            <div class="mock-card">
+              <div class="mock-tag" style="color: #B5502C; background: rgba(238,138,95,0.16);">Class</div>
+              <div class="title">Beginner's Table</div>
+              <div class="meta">₹2,500 · Saturdays</div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-tag" style="color: #2E5D44; background: rgba(78,150,112,0.16);">Course</div>
+              <div class="title">Mahjong in 30 Days</div>
+              <div class="meta">₹6,000 · Self-paced</div>
+            </div>
+            <div class="mock-card">
+              <div class="mock-tag" style="color: #A3405B; background: rgba(194,73,107,0.14);">Boutique</div>
+              <div class="title">Silk Tile Pouches</div>
+              <div class="meta">₹1,800 · Ships worldwide</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUR WAYS -->
+  <section id="ways-g" class="section section-inner">
+    <div class="ways-head" data-reveal>
+      <h2>Four ways to get paid</h2>
+      <p>Offer one, or all four. Everything lives on your site, and every rupee goes directly to you.</p>
+    </div>
+    <div class="ways-grid" data-reveal>
+      <div class="way-card way-orange">
+        <div class="sheen"></div>
+        <div class="tile-chip" style="color: #C2352B;">🀄</div>
+        <h3>Paid classes</h3>
+        <p>Take bookings for your in-person or online classes, with schedules and seat limits handled for you.</p>
+      </div>
+      <div class="way-card way-green">
+        <div class="sheen"></div>
+        <div class="tile-chip" style="color: #1F7A4D;">🀐</div>
+        <h3>Online courses</h3>
+        <p>Turn your teaching into video lessons your students can buy and learn from anywhere, anytime.</p>
+      </div>
+      <div class="way-card way-pink">
+        <div class="sheen"></div>
+        <div class="tile-chip" style="color: #C22B62;">🀙</div>
+        <h3>Live sessions</h3>
+        <p>Host live streamed games and lessons for your community — ticketed, or reserved for members.</p>
+      </div>
+      <div class="way-card way-violet">
+        <div class="sheen"></div>
+        <div class="tile-chip" style="color: #7A3FB8;">🀃</div>
+        <h3>Your boutique</h3>
+        <p>Sell your tile sets, table linens, and lovely things through a shop that matches your style.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-g" class="section">
+    <div class="jade-panel" data-reveal>
+      <div class="top-sheen"></div>
+      <div class="glow-a"></div>
+      <div class="glow-b"></div>
+      <div class="jade-label">No tech skills needed</div>
+      <h2>Ready in three gentle steps</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-tile">🀀</div>
+          <div class="step-num">Step 1</div>
+          <h3>Start from a template</h3>
+          <p>Choose a design that feels like you. Your photos, your words, your colours — arranged beautifully from day one.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-tile">🀁</div>
+          <div class="step-num">Step 2</div>
+          <h3>Add what you charge for</h3>
+          <p>List your classes, courses, sessions, and boutique pieces. Set your own prices, in your own words.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-tile">🀂</div>
+          <div class="step-num">Step 3</div>
+          <h3>Get paid directly</h3>
+          <p>Share your link. Students book, buy, and join — and payments arrive straight in your account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq-g" class="section faq-wrap">
+    <h2>A few questions</h2>
+    <div class="faq-list" data-reveal>
+      <div class="faq-card" data-open="true">
+        <button class="faq-q" type="button">
+          <span class="q">Where does the money go?</span>
+          <span class="mark">—</span>
+        </button>
+        <p class="faq-a">Straight to you. Bookings, course purchases, and boutique orders are paid directly into your own account — Mahjongers never holds your money.</p>
+      </div>
+      <div class="faq-card" data-open="false">
+        <button class="faq-q" type="button">
+          <span class="q">Do I need any tech skills?</span>
+          <span class="mark">+</span>
+        </button>
+        <p class="faq-a">None at all. You begin from a beautiful template and change anything by describing it in plain language — no code, no fiddly settings. And our founding-creator team sets up your first version with you.</p>
+      </div>
+      <div class="faq-card" data-open="false">
+        <button class="faq-q" type="button">
+          <span class="q">Can I use my own domain?</span>
+          <span class="mark">+</span>
+        </button>
+        <p class="faq-a">Your own domain (like thejaderoom.com) is coming soon. Until then, your site lives at yourname.mahjongers.com — elegant and easy to share.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER ACCESS -->
+  <section id="founder-g" class="section" style="padding-bottom: clamp(64px,9vw,110px);">
+    <div class="founder-glow"></div>
+    <div class="founder-card" data-reveal>
+      <div class="founder-badge">Founding creators</div>
+      <h2>We'll set up your first version with you</h2>
+      <p class="sub">We're onboarding a small circle of founding creators. Leave your details and we'll be in touch personally.</p>
+      <form class="founder-form" id="founderForm">
+        <input id="founderName" placeholder="Your name" autocomplete="name" required>
+        <input id="founderContact" placeholder="Email or WhatsApp number" autocomplete="email" required>
+        <input id="founderAbout" placeholder="Tell us a little about your mahjong world (optional)">
+        <button type="submit" id="founderSubmit">Request founder access</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="logo" style="font-size: 18px;">Mahjongers<em>.</em></div>
+    <div class="made">Made with love for the mahjong table · © 2026 Mahjongers</div>
+    <div class="footer-links">
+      <a href="#ways-g">Earn</a>
+      <a href="#how-g">How</a>
+      <a href="#faq-g">FAQ</a>
+    </div>
+  </footer>
+  <div class="footer-seo">
+    <a href="/mahjong-teacher-website">Teacher websites</a>
+    <a href="/mahjong-affiliate-program">Affiliate program</a>
+    <a href="/sell-mahjong-tiles">Sell mahjong tiles</a>
+    <a href="/host-mahjong-events">Host events</a>
+    <a href="/mahjong-tutorials">Tutorials</a>
+    <a href="/creator-branded-mahjong-tiles">Creator tile lines</a>
+    <a href="/calculator">Revenue calculator</a>
+  </div>
+</div>
+
+<script>
+  // Scroll reveal — elements already in view are never hidden; 4s fallback.
+  (function () {
+    const els = Array.from(document.querySelectorAll("[data-reveal]"));
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) { els.forEach((el) => el.setAttribute("data-reveal", "in")); return; }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.setAttribute("data-reveal", "in"); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const inView = r.top < window.innerHeight && r.bottom > 0;
+      if (!inView) { el.setAttribute("data-reveal", "out"); obs.observe(el); }
+      else { el.setAttribute("data-reveal", "in"); }
+    });
+    setTimeout(() => els.forEach((el) => el.setAttribute("data-reveal", "in")), 4000);
+  })();
+
+  // FAQ accordion — one open at a time; clicking the open one closes it.
+  document.querySelectorAll(".faq-card").forEach((card) => {
+    card.querySelector(".faq-q").addEventListener("click", () => {
+      const isOpen = card.dataset.open === "true";
+      document.querySelectorAll(".faq-card").forEach((c) => {
+        c.dataset.open = "false";
+        c.querySelector(".mark").textContent = "+";
+      });
+      if (!isOpen) {
+        card.dataset.open = "true";
+        card.querySelector(".mark").textContent = "—";
+      }
+    });
+  });
+
+  // Founder access form
+  document.querySelector("#founderForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = document.querySelector("#founderSubmit");
+    button.disabled = true;
+    try {
+      const response = await fetch("https://mahjongers.com/api/founder-access", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: document.querySelector("#founderName").value.trim(),
+          contact: document.querySelector("#founderContact").value.trim(),
+          firstSale: document.querySelector("#founderAbout").value.trim()
+        })
+      });
+      if (!response.ok) throw new Error("Request failed");
+      button.textContent = "Thank you — we'll be in touch";
+    } catch (error) {
+      button.disabled = false;
+      button.textContent = "Something went wrong — try again";
+    }
+  });
+</script>
+</body>
+</html>
