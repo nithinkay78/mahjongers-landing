@@ -40,8 +40,9 @@ async function handleSubscribe(req, res) {
     return sendJson(res, 400, { error: "A valid email is required." });
   }
   const apiKey = process.env.BEEHIIV_API_KEY;
-  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
-  if (!apiKey || !publicationId) {
+  // Publication id is not a secret; env var overrides this default.
+  const publicationId = process.env.BEEHIIV_PUBLICATION_ID || "pub_d6bdfb34-1ff5-4d82-b2e8-b4b1ba95dcc1";
+  if (!apiKey) {
     return sendJson(res, 503, { error: "Newsletter is not configured yet." });
   }
   try {
