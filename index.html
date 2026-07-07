@@ -322,6 +322,16 @@
     .founder-form button:hover { filter: brightness(1.08); }
     .founder-form button:disabled { cursor: default; filter: saturate(0.6); }
 
+    /* Newsletter */
+    .subscribe-card { max-width: 680px; margin: 0 auto; text-align: center; background: rgba(255,255,255,0.62); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.9); border-radius: 28px; padding: clamp(32px,5vw,52px) clamp(22px,4vw,48px); box-shadow: 0 24px 60px rgba(36,29,24,0.12), inset 0 1px 0 rgba(255,255,255,0.9); }
+    .subscribe-card h2 { margin: 14px 0 12px; }
+    .subscribe-form { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 28px; }
+    .subscribe-form input { flex: 1 1 260px; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; padding: 16px 22px; border: 1px solid rgba(36,29,24,0.12); border-radius: 999px; background: rgba(255,255,255,0.85); color: #241D18; outline: none; }
+    .subscribe-form input:focus { border-color: #D95F38; }
+    .subscribe-form button { all: unset; cursor: pointer; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #FFFFFF; background: linear-gradient(120deg, #FF8A4D, #F04E7C 60%, #C445B8); padding: 16px 32px; border-radius: 999px; box-shadow: 0 10px 26px rgba(240,78,124,0.45), inset 0 1px 0 rgba(255,255,255,0.55); transition: filter .2s; }
+    .subscribe-form button:hover { filter: brightness(1.08); }
+    .subscribe-form button:disabled { cursor: default; filter: saturate(0.6); }
+
     /* Footer */
     .footer {
       position: relative; border-top: 1px solid rgba(36,29,24,0.08);
@@ -533,6 +543,19 @@
     </div>
   </section>
 
+  <!-- NEWSLETTER -->
+  <section id="subscribe-g" class="section">
+    <div class="subscribe-card" data-reveal>
+      <div class="badge-green">Newsletter</div>
+      <h2>Mahjong, monetised — in your inbox</h2>
+      <p class="section-sub">Tips, creator spotlights, and new ways to earn from the game you love. No spam, unsubscribe anytime.</p>
+      <form class="subscribe-form" id="subscribeForm">
+        <input id="subscribeEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+        <button type="submit" id="subscribeSubmit">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
   <!-- FOUNDER ACCESS -->
   <section id="founder-g" class="section" style="padding-bottom: clamp(64px,9vw,110px);">
     <div class="founder-glow"></div>
@@ -552,6 +575,7 @@
       <a href="/#ways-g">Earn</a>
       <a href="/#how-g">How</a>
       <a href="/#faq-g">FAQ</a>
+      <a href="/#subscribe-g">Newsletter</a>
     </div>
   </footer>
   <div class="footer-seo">
@@ -598,6 +622,25 @@
         card.querySelector(".mark").textContent = "—";
       }
     });
+  });
+
+  // Newsletter subscribe — posts to the landing /subscribe endpoint (Beehiiv).
+  document.querySelector("#subscribeForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = document.querySelector("#subscribeSubmit");
+    button.disabled = true;
+    try {
+      const response = await fetch("/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: document.querySelector("#subscribeEmail").value.trim() })
+      });
+      if (!response.ok) throw new Error("Request failed");
+      button.textContent = "You're in — check your inbox";
+    } catch (error) {
+      button.disabled = false;
+      button.textContent = "Something went wrong — try again";
+    }
   });
 
 </script>
