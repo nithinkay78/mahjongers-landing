@@ -1,9 +1,14 @@
-// Cloudflare Worker — routes mahjongers.com traffic to two Railway services:
-//   /          → LANDING_ORIGIN  (mahjongers-landing Railway service)
-//   /@*        → PLATFORM_ORIGIN (mahjongers Railway service — brand sites)
-//   /api/*     → PLATFORM_ORIGIN (platform API)
-//   /studio*   → PLATFORM_ORIGIN (studio app)
-//   other platform paths → PLATFORM_ORIGIN
+// Cloudflare Worker — two responsibilities:
+//
+// 1. mahjongers.com/*
+//    /          → LANDING_ORIGIN  (mahjongers-landing Railway service)
+//    /@* /api/* /studio* etc → PLATFORM_ORIGIN (mahjongers Railway service)
+//
+// 2. origin.mahjongers.com/*
+//    Cloudflare for SaaS routes creator custom domains (e.g. madammahjong.org)
+//    to this fallback origin. The Worker receives the request with the creator's
+//    domain in the Host header, rewrites Host to the Railway service domain so
+//    Railway accepts it, and adds X-Creator-Domain so server.js can route it.
 
 const PLATFORM_PREFIXES = [
   "/@",
@@ -20,20 +25,32 @@ function isPlatformRequest(pathname) {
   return PLATFORM_PREFIXES.some((p) => pathname === p.replace(/\/$/, "") || pathname.startsWith(p));
 }
 
-function proxy(request, origin) {
+function proxy(request, targetOrigin, extraHeaders = {}) {
   const url = new URL(request.url);
-  url.hostname = origin;
+  url.hostname = targetOrigin;
   url.protocol = "https:";
   const headers = new Headers(request.headers);
-  headers.set("Host", origin);
-  headers.set("X-Forwarded-Host", new URL(request.url).hostname);
+  headers.set("Host", targetOrigin);
+  headers.set("X-Forwarded-Host", request.headers.get("host") || url.hostname);
+  for (const [k, v] of Object.entries(extraHeaders)) headers.set(k, v);
   return fetch(new Request(url.toString(), { ...request, headers }));
 }
 
 export default {
   async fetch(request, env) {
-    const { pathname } = new URL(request.url);
-    if (isPlatformRequest(pathname)) {
+    const url = new URL(request.url);
+    const incomingHost = request.headers.get("host") || url.hostname;
+
+    // Creator custom domain — routed here by Cloudflare for SaaS.
+    // The host header is the creator's domain (e.g. madammahjong.org).
+    if (url.hostname === "origin.mahjongers.com" || incomingHost !== "mahjongers.com") {
+      if (incomingHost !== "origin.mahjongers.com") {
+        return proxy(request, env.PLATFORM_ORIGIN, { "X-Creator-Domain": incomingHost });
+      }
+    }
+
+    // mahjongers.com routing
+    if (isPlatformRequest(url.pathname)) {
       return proxy(request, env.PLATFORM_ORIGIN);
     }
     return proxy(request, env.LANDING_ORIGIN);
