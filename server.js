@@ -22,6 +22,7 @@ http.createServer((req, res) => {
   }
   let pathname = new URL(req.url, "http://localhost").pathname;
   if (pathname === "/") pathname = "/index.html";
+  if (pathname === "/join") pathname = "/join.html";
 
   const filePath = path.normalize(path.join(__dirname, pathname));
   if (!filePath.startsWith(__dirname + path.sep) && filePath !== __dirname) {

@@ -361,7 +361,7 @@
       <a class="nav-link" href="#ways-g">Ways to earn</a>
       <a class="nav-link" href="#how-g">How it works</a>
       <a class="nav-link" href="#faq-g">Questions</a>
-      <a class="cta-gradient" href="#founder-g">Start earning</a>
+      <a class="cta-gradient" href="/join">Start earning</a>
     </nav>
   </header>
 
@@ -372,7 +372,7 @@
       <h1>The game you love <span class="grad-text">can pay you back.</span></h1>
       <p class="hero-sub">Paid classes, online courses, live sessions, and your own boutique — from one beautiful website that's yours.</p>
       <div class="hero-ctas">
-        <a class="btn-dark" href="#founder-g">Start earning</a>
+        <a class="btn-dark" href="/join">Start earning</a>
         <a class="btn-glass" href="#how-g">See how it works</a>
       </div>
     </div>
@@ -540,12 +540,7 @@
       <div class="founder-badge">Founding creators</div>
       <h2>We'll set up your first version with you</h2>
       <p class="sub">We're onboarding a small circle of founding creators. Leave your details and we'll be in touch personally.</p>
-      <form class="founder-form" id="founderForm">
-        <input id="founderName" placeholder="Your name" autocomplete="name" required>
-        <input id="founderContact" placeholder="Email or WhatsApp number" autocomplete="email" required>
-        <input id="founderAbout" placeholder="Tell us a little about your mahjong world (optional)">
-        <button type="submit" id="founderSubmit">Start earning</button>
-      </form>
+      <a class="cta-gradient" href="/join" style="display: inline-block; font-size: 15px; padding: 18px 40px;">Start earning</a>
     </div>
   </section>
 
@@ -605,28 +600,6 @@
     });
   });
 
-  // Founder access form
-  document.querySelector("#founderForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const button = document.querySelector("#founderSubmit");
-    button.disabled = true;
-    try {
-      const response = await fetch("https://mahjongers.com/api/founder-access", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: document.querySelector("#founderName").value.trim(),
-          contact: document.querySelector("#founderContact").value.trim(),
-          firstSale: document.querySelector("#founderAbout").value.trim()
-        })
-      });
-      if (!response.ok) throw new Error("Request failed");
-      button.textContent = "Thank you — we'll be in touch";
-    } catch (error) {
-      button.disabled = false;
-      button.textContent = "Something went wrong — try again";
-    }
-  });
 </script>
 </body>
 </html>
