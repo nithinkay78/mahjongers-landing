@@ -7,5 +7,6 @@ routes = [
   { pattern = "mahjongers.com/*", zone_name = "mahjongers.com" }
 ]
 
-[vars]
-PAGES_ORIGIN = "mahjongers-landing.pages.dev"
+# Set these as secrets (not plaintext vars) after deploying:
+#   wrangler secret put LANDING_ORIGIN   → e.g. mahjongers-landing.up.railway.app
+#   wrangler secret put PLATFORM_ORIGIN  → e.g. mahjongers-production.up.railway.app

@@ -1,12 +1,9 @@
-// Cloudflare Worker — routes mahjongers.com traffic:
-//   /          → Cloudflare Pages (landing page)
-//   /@*        → Railway origin (creator brand sites)
-//   /api/*     → Railway origin (platform API)
-//   /studio*   → Railway origin (studio app)
-//   other platform paths → Railway origin
-//
-// Subrequests from a Worker to the same zone go directly to the origin
-// (Railway) without re-triggering this Worker, so no loop risk.
+// Cloudflare Worker — routes mahjongers.com traffic to two Railway services:
+//   /          → LANDING_ORIGIN  (mahjongers-landing Railway service)
+//   /@*        → PLATFORM_ORIGIN (mahjongers Railway service — brand sites)
+//   /api/*     → PLATFORM_ORIGIN (platform API)
+//   /studio*   → PLATFORM_ORIGIN (studio app)
+//   other platform paths → PLATFORM_ORIGIN
 
 const PLATFORM_PREFIXES = [
   "/@",
@@ -23,18 +20,19 @@ function isPlatformRequest(pathname) {
   return PLATFORM_PREFIXES.some((p) => pathname === p.replace(/\/$/, "") || pathname.startsWith(p));
 }
 
+function proxy(request, origin) {
+  const url = new URL(request.url);
+  url.hostname = origin;
+  url.protocol = "https:";
+  return fetch(new Request(url.toString(), request));
+}
+
 export default {
   async fetch(request, env) {
-    const url = new URL(request.url);
-
-    if (isPlatformRequest(url.pathname)) {
-      // Pass through to Railway (same-zone subrequest bypasses this Worker).
-      return fetch(request);
+    const { pathname } = new URL(request.url);
+    if (isPlatformRequest(pathname)) {
+      return proxy(request, env.PLATFORM_ORIGIN);
     }
-
-    // Landing page — proxy to Cloudflare Pages.
-    const target = new URL(request.url);
-    target.hostname = env.PAGES_ORIGIN; // e.g. mahjongers-landing.pages.dev
-    return fetch(new Request(target.toString(), request));
+    return proxy(request, env.LANDING_ORIGIN);
   }
 };
