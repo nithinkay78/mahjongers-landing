@@ -88,7 +88,14 @@
     .founder-form button:hover { filter: brightness(1.08); }
     .founder-form button:disabled { cursor: default; filter: saturate(0.6); }
 
-    .footer { position: relative; padding: 24px clamp(20px,5vw,64px); text-align: center; font-size: 13px; font-weight: 500; color: #8B7A69; }
+    .footer { position: relative; border-top: 1px solid rgba(36,29,24,0.08); padding: 32px clamp(20px,5vw,64px); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; max-width: 1380px; margin: 0 auto; }
+    .footer .made { font-size: 13px; font-weight: 500; color: #8B7A69; }
+    .footer-links { display: flex; gap: 26px; font-size: 13px; font-weight: 700; }
+    .footer-links a { color: #6B5D52; transition: color .2s; }
+    .footer-links a:hover { color: #241D18; }
+    .footer-seo { position: relative; max-width: 1380px; margin: 0 auto; padding: 0 clamp(20px,5vw,64px) 28px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12px; font-weight: 500; }
+    .footer-seo a { color: rgba(139,122,105,0.75); }
+    .footer-seo a:hover { color: #6B5D52; }
   </style>
 </head>
 <body>
@@ -116,7 +123,24 @@
     </div>
   </main>
 
-  <footer class="footer">Made with love for the mahjong table · © 2026 Mahjongers</footer>
+  <footer class="footer">
+    <div class="logo" style="font-size: 18px;">Mahjongers<em>.</em></div>
+    <div class="made">Made with love for the mahjong table · © 2026 Mahjongers</div>
+    <div class="footer-links">
+      <a href="/#ways-g">Earn</a>
+      <a href="/#how-g">How</a>
+      <a href="/#faq-g">FAQ</a>
+    </div>
+  </footer>
+  <div class="footer-seo">
+    <a href="/mahjong-teacher-website">Teacher websites</a>
+    <a href="/mahjong-affiliate-program">Affiliate program</a>
+    <a href="/sell-mahjong-tiles">Sell mahjong tiles</a>
+    <a href="/host-mahjong-events">Host events</a>
+    <a href="/sell-mahjong-tutorials">Sell tutorials</a>
+    <a href="/creator-branded-mahjong-tiles">Creator tile lines</a>
+    <a href="/calculator">Revenue calculator</a>
+  </div>
 </div>
 
 <script>
