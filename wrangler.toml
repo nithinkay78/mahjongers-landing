@@ -5,7 +5,8 @@ account_id = "9c606048aae2b2853a528a201a5bb405"
 
 routes = [
   { pattern = "mahjongers.com/*", zone_name = "mahjongers.com" },
-  { pattern = "origin.mahjongers.com/*", zone_name = "mahjongers.com" }
+  { pattern = "origin.mahjongers.com/*", zone_name = "mahjongers.com" },
+  { pattern = "*/*", zone_name = "mahjongers.com" }
 ]
 
 # Set these as secrets (not plaintext vars) after deploying:

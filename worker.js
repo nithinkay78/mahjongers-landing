@@ -12,6 +12,7 @@
 
 const PLATFORM_PREFIXES = [
   "/@",
+  "/profile/",
   "/api/",
   "/studio",
   "/calculator",
@@ -33,7 +34,17 @@ function proxy(request, targetOrigin, extraHeaders = {}) {
   headers.set("Host", targetOrigin);
   headers.set("X-Forwarded-Host", request.headers.get("host") || url.hostname);
   for (const [k, v] of Object.entries(extraHeaders)) headers.set(k, v);
-  return fetch(new Request(url.toString(), { ...request, headers }));
+  // Spreading a Request ({ ...request }) drops method and body, so POST/PUT/DELETE
+  // arrived at the origin as a bodyless GET. Forward method + body explicitly.
+  // redirect: "manual" passes origin 3xx straight through instead of the Worker
+  // silently following them (which turned 301s into 200s).
+  const hasBody = request.method !== "GET" && request.method !== "HEAD";
+  return fetch(url.toString(), {
+    method: request.method,
+    headers,
+    body: hasBody ? request.body : undefined,
+    redirect: "manual"
+  });
 }
 
 export default {
