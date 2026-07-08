@@ -52,6 +52,13 @@ export default {
     const url = new URL(request.url);
     const incomingHost = request.headers.get("host") || url.hostname;
 
+    // www → apex 301. Must come before the creator-domain branch below, which
+    // would otherwise treat www.mahjongers.com as a creator custom domain and
+    // proxy it to the platform app.
+    if (incomingHost === "www.mahjongers.com") {
+      return Response.redirect(`https://mahjongers.com${url.pathname}${url.search}`, 301);
+    }
+
     // Creator custom domain — routed here by Cloudflare for SaaS.
     // The host header is the creator's domain (e.g. madammahjong.org).
     if (url.hostname === "origin.mahjongers.com" || incomingHost !== "mahjongers.com") {
