@@ -8,5 +8,8 @@
   },
   "engines": {
     "node": ">=22"
+  },
+  "dependencies": {
+    "@datafast/ai-crawl": "^1.0.7"
   }
 }
