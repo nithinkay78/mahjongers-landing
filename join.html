@@ -111,15 +111,23 @@
   <main class="wrap">
     <div class="founder-glow"></div>
     <div class="founder-card">
-      <div class="founder-badge">Founding creators</div>
-      <h1>We'll set up your first version with you</h1>
-      <p class="sub">We're onboarding a small circle of founding creators. Leave your details and we'll be in touch personally.</p>
-      <form class="founder-form" id="founderForm">
-        <input id="founderName" placeholder="Your name" autocomplete="name" required>
-        <input id="founderContact" placeholder="Email or WhatsApp number" autocomplete="email" required>
-        <input id="founderAbout" placeholder="Tell us a little about your mahjong world (optional)">
-        <button type="submit" id="founderSubmit">Start earning</button>
-      </form>
+      <div id="founderIntro">
+        <div class="founder-badge">Founding creators</div>
+        <h1>We'll set up your first version with you</h1>
+        <p class="sub">We're onboarding a small circle of founding creators. Leave your details and we'll be in touch personally.</p>
+        <form class="founder-form" id="founderForm">
+          <input id="founderName" placeholder="Your name" autocomplete="name" required>
+          <input id="founderEmail" type="email" placeholder="Email address" autocomplete="email" required>
+          <input id="founderPhone" type="tel" placeholder="Phone number with country code (optional)" autocomplete="tel">
+          <input id="founderAbout" placeholder="Tell us a little about your mahjong world (optional)">
+          <button type="submit" id="founderSubmit">Start earning</button>
+        </form>
+      </div>
+      <div id="founderSuccess" style="display: none;">
+        <div class="founder-badge">You're in 🀄</div>
+        <h1>We're excited to work with you</h1>
+        <p class="sub">Thank you — we'll be in touch shortly to set up your first version together.<br><br>In the meantime, check your inbox: we've just sent you a welcome email with resources to help you get started.</p>
+      </div>
     </div>
   </main>
 
@@ -149,18 +157,21 @@
     event.preventDefault();
     const button = document.querySelector("#founderSubmit");
     button.disabled = true;
+    button.textContent = "Sending…";
     try {
       const response = await fetch("/founder-access", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: document.querySelector("#founderName").value.trim(),
-          contact: document.querySelector("#founderContact").value.trim(),
+          email: document.querySelector("#founderEmail").value.trim(),
+          phone: document.querySelector("#founderPhone").value.trim(),
           firstSale: document.querySelector("#founderAbout").value.trim()
         })
       });
       if (!response.ok) throw new Error("Request failed");
-      button.textContent = "Thank you — we'll be in touch";
+      document.querySelector("#founderIntro").style.display = "none";
+      document.querySelector("#founderSuccess").style.display = "block";
     } catch (error) {
       button.disabled = false;
       button.textContent = "Something went wrong — try again";

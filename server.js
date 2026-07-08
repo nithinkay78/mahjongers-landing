@@ -64,7 +64,8 @@ async function sendLeadEmail(lead) {
     .split(",").map((e) => e.trim()).filter(Boolean);
   const lines = [
     `Name: ${lead.name || "—"}`,
-    `Contact: ${lead.contact || "—"}`,
+    `Email: ${lead.email || "—"}`,
+    lead.phone ? `Phone: ${lead.phone}` : "",
     lead.firstSale ? `About: ${lead.firstSale}` : "",
     `At: ${new Date().toISOString()}`
   ].filter(Boolean);
@@ -74,7 +75,7 @@ async function sendLeadEmail(lead) {
     body: JSON.stringify({
       from: process.env.LEAD_NOTIFY_FROM || "Mahjongers <leads@mahjongers.com>",
       to: recipients,
-      subject: `New founder-access request: ${lead.name || lead.contact}`,
+      subject: `New founder-access request: ${lead.name || lead.email}`,
       text: `A new founding creator asked for access.\n\n${lines.join("\n")}\n`
     })
   });
@@ -99,17 +100,16 @@ async function handleSubscribe(req, res) {
 // leads, subscribes them to the newsletter (Beehiiv). Both fire-and-forget.
 async function handleFounderAccess(req, res) {
   const body = await readJsonBody(req);
-  const contact = String(body.contact || body.email || "").trim().slice(0, 160);
-  if (!contact) return sendJson(res, 400, { error: "An email or WhatsApp number is required." });
+  const email = String(body.email || body.contact || "").trim().toLowerCase().slice(0, 160);
+  if (!EMAIL_RE.test(email)) return sendJson(res, 400, { error: "A valid email is required." });
   const lead = {
     name: String(body.name || "").trim().slice(0, 90),
-    contact,
+    email,
+    phone: String(body.phone || "").trim().slice(0, 40),
     firstSale: String(body.firstSale || "").trim().slice(0, 800)
   };
   sendLeadEmail(lead).catch((error) => console.error("Founder email alert failed:", error.message));
-  if (EMAIL_RE.test(contact.toLowerCase())) {
-    beehiivSubscribe(contact.toLowerCase(), "founder-form").catch((error) => console.error("Founder Beehiiv subscribe failed:", error.message));
-  }
+  beehiivSubscribe(email, "founder-form").catch((error) => console.error("Founder Beehiiv subscribe failed:", error.message));
   return sendJson(res, 201, { ok: true });
 }
 
