@@ -2,7 +2,6 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createExpressAICrawlerMiddleware } from "@datafast/ai-crawl";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
@@ -20,11 +19,6 @@ const MIME = {
 // Publication id is not a secret; env var overrides this default.
 const BEEHIIV_PUB_ID = process.env.BEEHIIV_PUBLICATION_ID || "pub_d6bdfb34-1ff5-4d82-b2e8-b4b1ba95dcc1";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// Server-side AI-crawler tracking (DataFast). Same website id as the client tag;
-// bots don't run the browser script, so this catches them (incl. sitemap/robots).
-const DATAFAST_WEBSITE_ID = process.env.DATAFAST_WEBSITE_ID || "dfid_NuT1rP5EwI86MnpsZ6DKM";
-const trackAICrawler = createExpressAICrawlerMiddleware({ websiteId: DATAFAST_WEBSITE_ID });
 
 function readJsonBody(req) {
   return new Promise((resolve) => {
@@ -120,9 +114,6 @@ async function handleFounderAccess(req, res) {
 }
 
 http.createServer((req, res) => {
-  // Non-blocking: classifies the UA now, reports to DataFast after the response.
-  trackAICrawler(req, res);
-
   const pathname = new URL(req.url, "http://localhost").pathname;
 
   if (req.method === "POST" && pathname === "/subscribe") { handleSubscribe(req, res); return; }

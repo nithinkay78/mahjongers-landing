@@ -10,9 +10,12 @@
 //    domain in the Host header, rewrites Host to the Railway service domain so
 //    Railway accepts it, and adds X-Creator-Domain so server.js can route it.
 
+import { withAICrawlerTracking } from "@datafast/ai-crawl";
+
 const PLATFORM_PREFIXES = [
   "/@",
   "/profile/",
+  "/calendars/",
   "/api/",
   "/studio",
   "/calculator",
@@ -47,30 +50,36 @@ function proxy(request, targetOrigin, extraHeaders = {}) {
   });
 }
 
-export default {
-  async fetch(request, env) {
-    const url = new URL(request.url);
-    const incomingHost = request.headers.get("host") || url.hostname;
+// DataFast AI-crawler tracking runs at this single choke point — all site
+// traffic passes through the Worker. Public website id (same as the client tag).
+const DATAFAST_WEBSITE_ID = "dfid_NuT1rP5EwI86MnpsZ6DKM";
 
-    // www → apex 301. Must come before the creator-domain branch below, which
-    // would otherwise treat www.mahjongers.com as a creator custom domain and
-    // proxy it to the platform app.
-    if (incomingHost === "www.mahjongers.com") {
-      return Response.redirect(`https://mahjongers.com${url.pathname}${url.search}`, 301);
-    }
+async function handleFetch(request, env, ctx) {
+  const url = new URL(request.url);
+  const incomingHost = request.headers.get("host") || url.hostname;
 
-    // Creator custom domain — routed here by Cloudflare for SaaS.
-    // The host header is the creator's domain (e.g. madammahjong.org).
-    if (url.hostname === "origin.mahjongers.com" || incomingHost !== "mahjongers.com") {
-      if (incomingHost !== "origin.mahjongers.com") {
-        return proxy(request, env.PLATFORM_ORIGIN, { "X-Creator-Domain": incomingHost });
-      }
-    }
-
-    // mahjongers.com routing
-    if (isPlatformRequest(url.pathname)) {
-      return proxy(request, env.PLATFORM_ORIGIN);
-    }
-    return proxy(request, env.LANDING_ORIGIN);
+  // www → apex 301. Must come before the creator-domain branch below, which
+  // would otherwise treat www.mahjongers.com as a creator custom domain and
+  // proxy it to the platform app.
+  if (incomingHost === "www.mahjongers.com") {
+    return Response.redirect(`https://mahjongers.com${url.pathname}${url.search}`, 301);
   }
+
+  // Creator custom domain — routed here by Cloudflare for SaaS.
+  // The host header is the creator's domain (e.g. madammahjong.org).
+  if (url.hostname === "origin.mahjongers.com" || incomingHost !== "mahjongers.com") {
+    if (incomingHost !== "origin.mahjongers.com") {
+      return proxy(request, env.PLATFORM_ORIGIN, { "X-Creator-Domain": incomingHost });
+    }
+  }
+
+  // mahjongers.com routing
+  if (isPlatformRequest(url.pathname)) {
+    return proxy(request, env.PLATFORM_ORIGIN);
+  }
+  return proxy(request, env.LANDING_ORIGIN);
+}
+
+export default {
+  fetch: withAICrawlerTracking(handleFetch, { websiteId: DATAFAST_WEBSITE_ID })
 };
