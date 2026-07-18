@@ -65,6 +65,13 @@ async function handleFetch(request, env, ctx) {
     return Response.redirect(`https://mahjongers.com${url.pathname}${url.search}`, 301);
   }
 
+  // Studio app subdomain → platform origin directly. Without this it falls into
+  // the creator-custom-domain branch below and reaches the platform with a bogus
+  // X-Creator-Domain: studio.mahjongers.com, which only works by accident.
+  if (incomingHost === "studio.mahjongers.com") {
+    return proxy(request, env.PLATFORM_ORIGIN);
+  }
+
   // Creator custom domain — routed here by Cloudflare for SaaS.
   // The host header is the creator's domain (e.g. madammahjong.org).
   if (url.hostname === "origin.mahjongers.com" || incomingHost !== "mahjongers.com") {
