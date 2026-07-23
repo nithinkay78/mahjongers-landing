@@ -29,6 +29,13 @@ function isPlatformRequest(pathname) {
   return PLATFORM_PREFIXES.some((p) => pathname === p.replace(/\/$/, "") || pathname.startsWith(p));
 }
 
+// Mahjongers Market — a separate Next.js service (MARKET_ORIGIN) mounted at
+// /market. Next owns /market/_next/* assets too, so the prefix covers them.
+const MARKET_PREFIX = "/market";
+function isMarketRequest(pathname) {
+  return pathname === MARKET_PREFIX || pathname.startsWith(MARKET_PREFIX + "/");
+}
+
 function proxy(request, targetOrigin, extraHeaders = {}) {
   const url = new URL(request.url);
   url.hostname = targetOrigin;
@@ -81,6 +88,9 @@ async function handleFetch(request, env, ctx) {
   }
 
   // mahjongers.com routing
+  if (isMarketRequest(url.pathname)) {
+    return proxy(request, env.MARKET_ORIGIN);
+  }
   if (isPlatformRequest(url.pathname)) {
     return proxy(request, env.PLATFORM_ORIGIN);
   }
