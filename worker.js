@@ -3,13 +3,23 @@
 // adds clean URLs, the two lead-form endpoints, and security headers.
 import { withAICrawlerTracking } from "@datafast/ai-crawl";
 
-const PAGES = {
-  "/": "/index.html",
-  "/join": "/join.html",
-  "/social-media": "/social-media.html",
-  "/privacy": "/privacy.html",
-  "/terms": "/terms.html"
-};
+// Clean URLs map onto files in ./public: / → /index.html, /blog → /blog/index.html,
+// /join → /join.html, /blog/some-post → /blog/some-post.html.
+function assetFor(pathname) {
+  if (pathname === "/") return "/index.html";
+  if (pathname === "/blog") return "/blog/index.html";
+  return /\.[a-z0-9]+$/i.test(pathname) ? pathname : `${pathname}.html`;
+}
+
+// The reverse, for redirecting file-style or trailing-slash URLs to the one clean URL.
+function cleanFor(pathname) {
+  if (pathname === "/index.html") return "/";
+  if (pathname === "/404.html" || pathname === "/404") return null;
+  if (pathname.endsWith("/index.html")) return pathname.slice(0, -"/index.html".length);
+  if (pathname.endsWith(".html")) return pathname.slice(0, -".html".length);
+  if (pathname.length > 1 && pathname.endsWith("/")) return pathname.slice(0, -1);
+  return null;
+}
 
 // Pages of the retired creator platform. 410 tells search engines to drop them.
 const RETIRED_PREFIXES = ["/@", "/profile/", "/api/", "/studio", "/market", "/calculator", "/mahjong-", "/sell-", "/host-", "/creator-"];
@@ -131,15 +141,15 @@ async function handle(request, env, ctx) {
   if (!["GET", "HEAD"].includes(request.method)) return new Response(null, { status: 405, headers: { Allow: "GET, HEAD" } });
 
   // One URL per page: /index.html, /join.html, trailing slashes → the clean path.
-  const clean = Object.entries(PAGES).find(([, file]) => file === url.pathname)?.[0]
-    ?? (url.pathname.length > 1 && url.pathname.endsWith("/") && PAGES[url.pathname.slice(0, -1)] ? url.pathname.slice(0, -1) : null);
+  const clean = cleanFor(url.pathname);
   if (clean) return Response.redirect(`https://mahjongers.com${clean}${url.search}`, 301);
   if (url.pathname === "/favicon.ico") return Response.redirect("https://mahjongers.com/assets/favicon.svg", 301);
 
   if (RETIRED_PREFIXES.some((p) => url.pathname.startsWith(p))) return notFound(request, env, url, 410);
 
+  if (url.pathname === "/404.html" || url.pathname === "/404") return notFound(request, env, url, 404);
   const target = new URL(url);
-  if (PAGES[url.pathname]) target.pathname = PAGES[url.pathname];
+  target.pathname = assetFor(url.pathname);
   const response = await env.ASSETS.fetch(new Request(target, request));
   if (response.status === 404) return notFound(request, env, url, 404);
   if (url.pathname.startsWith("/assets/")) return withHeaders(response, { "Cache-Control": "public, max-age=604800" });

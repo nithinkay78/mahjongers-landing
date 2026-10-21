@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy"
+    "deploy": "wrangler deploy",
+    "build:blog": "python3 scripts/build-blog.py content/blog public/blog"
   },
   "engines": {
     "node": ">=22"

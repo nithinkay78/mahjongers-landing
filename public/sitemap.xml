@@ -2,7 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://mahjongers.com/</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://mahjongers.com/social-media</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://mahjongers.com/join</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mahjongers.com/blog</loc><lastmod>2026-10-22</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://mahjongers.com/blog/fill-mahjong-classes-instagram</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mahjongers.com/blog/mahjong-social-media-post-ideas</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mahjongers.com/blog/social-media-manager-cost-mahjong</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mahjongers.com/blog/start-mahjong-teaching-business</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://mahjongers.com/join</loc><lastmod>2026-10-22</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://mahjongers.com/privacy</loc><lastmod>2026-10-22</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
   <url><loc>https://mahjongers.com/terms</loc><lastmod>2026-10-22</lastmod><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>
