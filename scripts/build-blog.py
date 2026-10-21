@@ -31,7 +31,7 @@ HEAD = """<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/site.css?v=20261022">
+  <link rel="stylesheet" href="/assets/site.css?v=20261023">
   <script type="application/ld+json">
 {ld}
   </script>
@@ -44,24 +44,32 @@ HEAD = """<!DOCTYPE html>
     <a class="logo" href="/">Mahjongers<em>.</em></a>
     <nav>
       <a class="nav-link" href="/blog">Blog</a>
+      <a class="nav-link" href="/website-design">Website design</a>
       <a class="nav-link" href="/social-media">Social media</a>
-      <a class="cta-gradient" href="/social-media#plans">See plans</a>
+      <a class="cta-gradient" href="/join">Get in touch</a>
     </nav>
   </header>
 """
 FOOT = """  <footer class="footer">
     <div class="logo" style="font-size: 18px;">Mahjongers<em>.</em></div>
     <div class="made">Made with love for the mahjong table · © 2026 Mahjongers</div>
-    <div class="footer-links"><a href="/">Home</a><a href="/blog">Blog</a><a href="/social-media">Social media</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+    <div class="footer-links"><a href="/">Home</a><a href="/blog">Blog</a><a href="/website-design">Website design</a><a href="/social-media">Social media</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
   </footer>
 </div>
 </body>
 </html>
 """
-CTA = """      <aside class="post-cta">
-        <h2>Want this done for you?</h2>
-        <p>Mahjongers Social runs your Instagram, Facebook and TikTok — posts, Reels, Stories and DMs. Plans from $350/month.</p>
-        <a class="cta-gradient" href="/social-media">See social media plans</a>
+# Each post picks its call to action with "cta" in its header (default: social).
+CTAS = {
+    "social": ("Want this done for you?", "Mahjongers Social runs your Instagram, Facebook and TikTok — posts, Reels, Stories and DMs. Plans from $350/month.", "/social-media", "See social media plans"),
+    "websites": ("Want a website that does this for you?", "Mahjongers Websites builds your site, sets up booking and payments, and makes you easy for Google and AI assistants to recommend. From $1,250.", "/website-design", "See website plans"),
+}
+def cta(kind):
+    h, p, href, label = CTAS[kind]
+    return f"""      <aside class="post-cta">
+        <h2>{h}</h2>
+        <p>{p}</p>
+        <a class="cta-gradient" href="{href}">{label}</a>
       </aside>
 """
 ORG = {"@type": "Organization", "@id": f"{SITE}/#organization", "name": "Mahjongers", "url": f"{SITE}/", "logo": f"{SITE}/assets/favicon.svg"}
@@ -89,7 +97,7 @@ for f in sorted(src.glob("*.html")):
       <h1>{html.escape(meta["title"])}</h1>
       <p class="post-meta">By the Mahjongers team · <time datetime="{DATE}">22 October 2026</time> · {meta["read"]}</p>
 {body}
-{CTA}    </article>
+{cta(meta.get("cta", "social"))}    </article>
   </main>
 """ + FOOT
     (out / f"{slug}.html").write_text(page)
@@ -110,7 +118,7 @@ idx += f"""  <main class="section">
       <div class="section-head">
         <div class="badge green">The Mahjongers Blog</div>
         <h1>Grow your mahjong table</h1>
-        <p class="lede">Practical guides for mahjong teachers, hosts and shops — from filling classes to running your social media.</p>
+        <p class="lede">Practical guides for mahjong teachers, hosts and shops — websites, social media, getting found by AI and filling your classes.</p>
       </div>
       <div class="post-list">
 {cards}

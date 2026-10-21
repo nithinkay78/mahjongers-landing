@@ -24,7 +24,16 @@ function cleanFor(pathname) {
 // Pages of the retired creator platform. 410 tells search engines to drop them.
 const RETIRED_PREFIXES = ["/@", "/profile/", "/api/", "/studio", "/market", "/calculator", "/mahjong-", "/sell-", "/host-", "/creator-"];
 
-const PLANS = ["starter", "pro", "max"];
+// ?plan= values from /social-media and /website-design → label used in the lead email.
+const PLANS = {
+  "starter": "Social media — Starter ($350/mo)",
+  "pro": "Social media — Pro ($750/mo)",
+  "max": "Social media — Max ($1,500/mo)",
+  "web-starter": "Website — Starter ($1,250 + $49/mo)",
+  "web-pro": "Website — Pro ($2,500 + $99/mo)",
+  "web-max": "Website — Max ($5,000 + $199/mo)",
+  "ai-visibility": "AI Visibility ($300/mo)"
+};
 
 const SECURITY_HEADERS = {
   "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
@@ -76,12 +85,12 @@ async function sendLeadEmail(lead, env) {
     `Name: ${lead.name || "—"}`,
     `Email: ${lead.email || "—"}`,
     lead.phone ? `Phone: ${lead.phone}` : "",
-    lead.plan ? `Social media plan: ${lead.plan}` : "",
+    lead.plan ? `Plan: ${PLANS[lead.plan]}` : "",
     lead.firstSale ? `About: ${lead.firstSale}` : "",
     `At: ${new Date().toISOString()}`
   ].filter(Boolean);
   const subject = lead.plan
-    ? `New social media lead (${lead.plan}): ${lead.name || lead.email}`
+    ? `New lead — ${PLANS[lead.plan]}: ${lead.name || lead.email}`
     : `New founder-access request: ${lead.name || lead.email}`;
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -125,9 +134,9 @@ async function handleForm(request, env, ctx, url) {
   }
   const name = String(body.name || "").trim().slice(0, 90);
   if (!name) return json({ error: "Please tell us your name." }, 400);
-  const plan = PLANS.includes(body.plan) ? body.plan : "";
+  const plan = Object.hasOwn(PLANS, body.plan) ? body.plan : "";
   const lead = { name, email, plan, phone: String(body.phone || "").trim().slice(0, 40), firstSale: String(body.firstSale || "").trim().slice(0, 800) };
-  ctx.waitUntil(Promise.allSettled([sendLeadEmail(lead, env), beehiivSubscribe(email, plan ? `social-${plan}` : "founder-form", env)]));
+  ctx.waitUntil(Promise.allSettled([sendLeadEmail(lead, env), beehiivSubscribe(email, plan ? (plan.startsWith("web-") || plan === "ai-visibility" ? plan : `social-${plan}`) : "founder-form", env)]));
   return json({ ok: true }, 201);
 }
 

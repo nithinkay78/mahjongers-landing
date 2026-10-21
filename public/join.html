@@ -125,10 +125,18 @@
           <input id="founderPhone" type="tel" placeholder="+1 555 123 4567" autocomplete="tel">
           <label for="founderPlan">I'm interested in</label>
           <select id="founderPlan">
-            <option value="">A website for my mahjong business</option>
-            <option value="starter">Social media — Starter ($350/mo)</option>
-            <option value="pro">Social media — Pro ($750/mo)</option>
-            <option value="max">Social media — Max ($1,500/mo)</option>
+            <option value="">Not sure yet — tell me more</option>
+            <optgroup label="Websites">
+              <option value="web-starter">Website — Starter ($1,250)</option>
+              <option value="web-pro">Website — Pro ($2,500)</option>
+              <option value="web-max">Website — Max ($5,000)</option>
+              <option value="ai-visibility">AI Visibility ($300/mo)</option>
+            </optgroup>
+            <optgroup label="Social media">
+              <option value="starter">Social media — Starter ($350/mo)</option>
+              <option value="pro">Social media — Pro ($750/mo)</option>
+              <option value="max">Social media — Max ($1,500/mo)</option>
+            </optgroup>
           </select>
           <label for="founderAbout">About your mahjong world (optional)</label>
           <input id="founderAbout" placeholder="Classes, events, a shop…">
@@ -153,6 +161,7 @@
       <a href="/#how-g">How</a>
       <a href="/#faq-g">FAQ</a>
       <a href="/#subscribe-g">Newsletter</a>
+      <a href="/website-design">Website design</a>
       <a href="/social-media">Social media</a>
       <a href="/blog">Blog</a>
       <a href="/privacy">Privacy</a>
@@ -168,9 +177,13 @@
     const select = document.querySelector("#founderPlan");
     if (!plan || ![...select.options].some((o) => o.value === plan)) return;
     select.value = plan;
-    document.querySelector("#founderIntro .founder-badge").textContent = "Mahjongers Social";
-    document.querySelector("#founderIntro h1").textContent = "Let's get your social media going";
-    document.querySelector("#founderIntro .sub").textContent = "Leave your details and we'll book your intake call — your first posts go out in your first week.";
+    const web = plan.startsWith("web-") || plan === "ai-visibility";
+    document.querySelector("#founderIntro .founder-badge").textContent = web ? "Mahjongers Websites" : "Mahjongers Social";
+    document.querySelector("#founderIntro h1").textContent = plan === "ai-visibility" ? "Let's get you recommended by AI"
+      : web ? "Let's build your website" : "Let's get your social media going";
+    document.querySelector("#founderIntro .sub").textContent = web
+      ? "Leave your details and we'll book a discovery call, then send you a quote and a plan."
+      : "Leave your details and we'll book your intake call — your first posts go out in your first week.";
   })();
 
   document.querySelector("#founderForm").addEventListener("submit", async (event) => {

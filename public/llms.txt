@@ -1,8 +1,9 @@
 # Mahjongers
 
-> Mahjongers helps mahjong teachers, hosts, clubs and shops grow. Our main service, Mahjongers Social, is done-for-you social media management (Instagram, Facebook, TikTok, YouTube Shorts, Pinterest, LinkedIn) priced in US dollars. Operated by Move78 Hospitality, India.
+> Mahjongers helps mahjong teachers, hosts, clubs and shops grow, with two services priced in US dollars: Mahjongers Websites (website design with booking, payments, SEO and AI visibility) and Mahjongers Social (done-for-you social media management for Instagram, Facebook, TikTok, YouTube Shorts, Pinterest and LinkedIn). Operated by Move78 Hospitality, India.
 
 ## Services
+- [Mahjongers Websites — website design plans](https://mahjongers.com/website-design): Starter $1,250 one-time + $49/month care (up to 3 pages, live in 15 days), Pro $2,500 + $99/month (up to 8 pages, booking and Stripe payments, blog, full SEO and AI-visibility setup, live in 30 days), Max $5,000 + $199/month (up to 20 pages, shop and memberships, monthly AI-visibility tracking, live in 60 days). AI Visibility add-on $300/month for any website. Clients own their domain and content.
 - [Mahjongers Social — plans and pricing](https://mahjongers.com/social-media): Starter $350/month (2 platforms, 12 posts incl. 4 Reels), Pro $750/month (3 platforms, 20 posts incl. 8 Reels, Stories, DMs), Max $1,500/month (4 platforms, 30 posts incl. 12 Reels, daily Stories and DMs, paid ads managed). 3-month minimum, then month to month. Clients keep ownership of their accounts.
 - [Get started](https://mahjongers.com/join): contact form for new clients.
 
@@ -11,6 +12,10 @@
 - [40 social media post ideas for mahjong teachers and hosts](https://mahjongers.com/blog/mahjong-social-media-post-ideas)
 - [How much does a social media manager cost for a mahjong business?](https://mahjongers.com/blog/social-media-manager-cost-mahjong)
 - [How to start a mahjong teaching business](https://mahjongers.com/blog/start-mahjong-teaching-business)
+- [Why every mahjong teacher needs a website](https://mahjongers.com/blog/why-mahjong-teachers-need-a-website)
+- [How to get your mahjong classes recommended by ChatGPT, Claude and Grok](https://mahjongers.com/blog/get-recommended-by-chatgpt)
+- [What a mahjong teacher's website should include: a 15-point checklist](https://mahjongers.com/blog/mahjong-teacher-website-checklist)
+- [How much a website costs for a mahjong business](https://mahjongers.com/blog/website-cost-mahjong-business)
 
 ## Policies
 - [Privacy Policy](https://mahjongers.com/privacy)
