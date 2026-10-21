@@ -1,6 +1,7 @@
 // Landing page and lead forms hosted entirely on Cloudflare.
 // Static pages live in ./public (served through the ASSETS binding); this Worker
 // adds clean URLs, the two lead-form endpoints, and security headers.
+import { withAICrawlerTracking } from "@datafast/ai-crawl";
 
 const PAGES = {
   "/": "/index.html",
@@ -151,9 +152,11 @@ async function notFound(request, env, url, status) {
 }
 
 export default {
-  async fetch(request, env, ctx) {
+  // DataFast bot-traffic tracking (AI answers / indexing / training crawlers).
+  // Runs here, server-side, because crawlers skip the browser script.
+  fetch: withAICrawlerTracking(async (request, env, ctx) => {
     const response = await handle(request, env, ctx);
     // Redirects and form replies get the security headers too.
     return response.headers.has("Strict-Transport-Security") ? response : withHeaders(response);
-  }
+  }, { websiteId: "dfid_NuT1rP5EwI86MnpsZ6DKM" })
 };
