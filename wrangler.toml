@@ -1,14 +1,30 @@
 name = "mahjongers-router"
 main = "worker.js"
-compatibility_date = "2024-01-01"
+compatibility_date = "2026-10-14"
 account_id = "9c606048aae2b2853a528a201a5bb405"
 
+# Every proxied hostname on the zone runs through the Worker. Anything other than
+# the apex (and www → apex) gets a 410, so retired subdomains still pointing at
+# dead origins (studio, admin, blog, market, the * wildcard) can't be taken over.
 routes = [
   { pattern = "mahjongers.com/*", zone_name = "mahjongers.com" },
-  { pattern = "origin.mahjongers.com/*", zone_name = "mahjongers.com" },
-  { pattern = "*/*", zone_name = "mahjongers.com" }
+  { pattern = "*.mahjongers.com/*", zone_name = "mahjongers.com" }
 ]
 
-# Set these as secrets (not plaintext vars) after deploying:
-#   wrangler secret put LANDING_ORIGIN   → e.g. mahjongers-landing.up.railway.app
-#   wrangler secret put PLATFORM_ORIGIN  → e.g. mahjongers-production.up.railway.app
+[assets]
+directory = "./public"
+binding = "ASSETS"
+run_worker_first = true
+html_handling = "none"
+not_found_handling = "none"
+
+# Lead forms: 5 posts per minute per IP per endpoint.
+[[ratelimits]]
+name = "FORM_LIMITER"
+namespace_id = "7801"
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
+# Secrets (wrangler secret put): BEEHIIV_API_KEY, RESEND_API_KEY.
+# Optional vars: BEEHIIV_PUBLICATION_ID, LEAD_NOTIFY_EMAILS, LEAD_NOTIFY_FROM.

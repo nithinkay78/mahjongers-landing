@@ -13,12 +13,12 @@
   <meta property="og:title" content="Join Mahjongers — Founding creators">
   <meta property="og:description" content="We'll set up your first version with you. Leave your details and we'll be in touch personally.">
   <meta property="og:url" content="https://mahjongers.com/join">
-  <meta property="og:image" content="https://mahjongers.com/assets/mahjongers-hero.png">
+  <meta property="og:image" content="https://mahjongers.com/assets/og-image.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Join Mahjongers — Founding creators">
   <meta name="twitter:description" content="We'll set up your first version with you. Leave your details and we'll be in touch personally.">
-  <meta name="twitter:image" content="https://mahjongers.com/assets/mahjongers-hero.png">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta name="twitter:image" content="https://mahjongers.com/assets/og-image.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -90,12 +90,13 @@
 
     .footer { position: relative; border-top: 1px solid rgba(36,29,24,0.08); padding: 32px clamp(20px,5vw,64px); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; max-width: 1380px; margin: 0 auto; }
     .footer .made { font-size: 13px; font-weight: 500; color: #8B7A69; }
-    .footer-links { display: flex; gap: 26px; font-size: 13px; font-weight: 700; }
-    .footer-links a { color: #6B5D52; transition: color .2s; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 13px; font-weight: 700; }
+    .footer-links a { color: #6B5D52; transition: color .2s; display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; }
+    .founder-form label { font-size: 13px; font-weight: 700; color: #5C5045; margin: 4px 0 -6px 6px; }
+    .founder-form select { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; padding: 17px 22px; border: 1px solid rgba(36,29,24,0.12); border-radius: 16px; background: rgba(255,255,255,0.85); color: #241D18; width: 100%; }
+    .founder-form .consent { font-size: 13px; line-height: 1.5; color: #8B7A69; margin: 4px 0 0; text-align: center; }
+    .founder-form .consent a { color: #B5502C; text-decoration: underline; }
     .footer-links a:hover { color: #241D18; }
-    .footer-seo { position: relative; max-width: 1380px; margin: 0 auto; padding: 0 clamp(20px,5vw,64px) 28px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12px; font-weight: 500; }
-    .footer-seo a { color: rgba(139,122,105,0.75); }
-    .footer-seo a:hover { color: #6B5D52; }
   </style>
 </head>
 <body>
@@ -116,11 +117,24 @@
         <h1>We'll set up your first version with you</h1>
         <p class="sub">We're onboarding a small circle of founding creators. Leave your details and we'll be in touch personally.</p>
         <form class="founder-form" id="founderForm">
-          <input id="founderName" placeholder="Your name" autocomplete="name" required>
-          <input id="founderEmail" type="email" placeholder="Email address" autocomplete="email" required>
-          <input id="founderPhone" type="tel" placeholder="Phone number with country code (optional)" autocomplete="tel">
-          <input id="founderAbout" placeholder="Tell us a little about your mahjong world (optional)">
-          <button type="submit" id="founderSubmit">Start earning</button>
+          <label for="founderName">Your name</label>
+          <input id="founderName" placeholder="Jane Lee" autocomplete="name" required>
+          <label for="founderEmail">Email</label>
+          <input id="founderEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+          <label for="founderPhone">Phone, with country code (optional)</label>
+          <input id="founderPhone" type="tel" placeholder="+1 555 123 4567" autocomplete="tel">
+          <label for="founderPlan">I'm interested in</label>
+          <select id="founderPlan">
+            <option value="">A website for my mahjong business</option>
+            <option value="starter">Social media — Starter ($350/mo)</option>
+            <option value="pro">Social media — Pro ($750/mo)</option>
+            <option value="max">Social media — Max ($1,500/mo)</option>
+          </select>
+          <label for="founderAbout">About your mahjong world (optional)</label>
+          <input id="founderAbout" placeholder="Classes, events, a shop…">
+          <input id="founderWebsite" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
+          <button type="submit" id="founderSubmit">Send my details</button>
+          <p class="consent">We'll use these details to get in touch and add you to our newsletter (unsubscribe anytime). See our <a href="/privacy">Privacy Policy</a>.</p>
         </form>
       </div>
       <div id="founderSuccess" style="display: none;">
@@ -139,20 +153,25 @@
       <a href="/#how-g">How</a>
       <a href="/#faq-g">FAQ</a>
       <a href="/#subscribe-g">Newsletter</a>
+      <a href="/social-media">Social media</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
     </div>
   </footer>
-  <div class="footer-seo">
-    <a href="/mahjong-teacher-website">Teacher websites</a>
-    <a href="/mahjong-affiliate-program">Affiliate program</a>
-    <a href="/sell-mahjong-tiles">Sell mahjong tiles</a>
-    <a href="/host-mahjong-events">Host events</a>
-    <a href="/sell-mahjong-tutorials">Sell tutorials</a>
-    <a href="/creator-branded-mahjong-tiles">Creator tile lines</a>
-    <a href="/calculator">Revenue calculator</a>
-  </div>
 </div>
 
 <script>
+  // Arriving from a social media plan (/join?plan=pro) — preselect it and say so.
+  (function () {
+    const plan = new URLSearchParams(location.search).get("plan");
+    const select = document.querySelector("#founderPlan");
+    if (!plan || ![...select.options].some((o) => o.value === plan)) return;
+    select.value = plan;
+    document.querySelector("#founderIntro .founder-badge").textContent = "Mahjongers Social";
+    document.querySelector("#founderIntro h1").textContent = "Let's get your social media going";
+    document.querySelector("#founderIntro .sub").textContent = "Leave your details and we'll book your intake call — your first posts go out in your first week.";
+  })();
+
   document.querySelector("#founderForm").addEventListener("submit", async (event) => {
     event.preventDefault();
     const button = document.querySelector("#founderSubmit");
@@ -166,15 +185,18 @@
           name: document.querySelector("#founderName").value.trim(),
           email: document.querySelector("#founderEmail").value.trim(),
           phone: document.querySelector("#founderPhone").value.trim(),
-          firstSale: document.querySelector("#founderAbout").value.trim()
+          plan: document.querySelector("#founderPlan").value,
+          firstSale: document.querySelector("#founderAbout").value.trim(),
+          website: document.querySelector("#founderWebsite").value
         })
       });
-      if (!response.ok) throw new Error("Request failed");
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Something went wrong — try again");
       document.querySelector("#founderIntro").style.display = "none";
       document.querySelector("#founderSuccess").style.display = "block";
     } catch (error) {
       button.disabled = false;
-      button.textContent = "Something went wrong — try again";
+      button.textContent = error.message || "Something went wrong — try again";
     }
   });
 </script>

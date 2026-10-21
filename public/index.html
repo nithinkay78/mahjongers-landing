@@ -14,15 +14,15 @@
   <meta property="og:title" content="Mahjongers — The game you love can pay you back">
   <meta property="og:description" content="Paid classes, online courses, live sessions, and your own boutique — from one beautiful website that's yours.">
   <meta property="og:url" content="https://mahjongers.com/">
-  <meta property="og:image" content="https://mahjongers.com/assets/mahjongers-hero.png">
-  <meta property="og:image:width" content="1693">
-  <meta property="og:image:height" content="929">
+  <meta property="og:image" content="https://mahjongers.com/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Mahjongers — a monetisation platform for mahjong creators">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Mahjongers — The game you love can pay you back">
   <meta name="twitter:description" content="A monetisation platform for mahjong teachers, hosts, and creators.">
-  <meta name="twitter:image" content="https://mahjongers.com/assets/mahjongers-hero.png">
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <meta name="twitter:image" content="https://mahjongers.com/assets/og-image.jpg">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -282,7 +282,7 @@
       border: 1px solid rgba(255,255,255,0.85); border-radius: 20px;
       padding: 26px 30px; box-shadow: 0 10px 28px rgba(36,29,24,0.07);
     }
-    .faq-q { all: unset; cursor: pointer; display: flex; align-items: baseline; justify-content: space-between; width: 100%; gap: 16px; box-sizing: border-box; }
+    .faq-q { all: unset; cursor: pointer; display: flex; align-items: center; min-height: 44px; justify-content: space-between; width: 100%; gap: 16px; box-sizing: border-box; }
     .faq-q .q { font-weight: 700; font-size: 19px; color: #241D18; }
     .faq-q .mark { font-weight: 800; font-size: 20px; background: linear-gradient(120deg, #F26430, #E23A78); -webkit-background-clip: text; background-clip: text; color: transparent; flex-shrink: 0; }
     .faq-a { font-size: 15px; line-height: 1.65; color: #5C5045; margin: 14px 0 0; max-width: 640px; font-weight: 500; text-wrap: pretty; }
@@ -341,17 +341,9 @@
       max-width: 1380px; margin: 0 auto;
     }
     .footer .made { font-size: 13px; font-weight: 500; color: #8B7A69; }
-    .footer-links { display: flex; gap: 26px; font-size: 13px; font-weight: 700; }
-    .footer-links a { color: #6B5D52; transition: color .2s; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 13px; font-weight: 700; }
+    .footer-links a { color: #6B5D52; transition: color .2s; display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; }
     .footer-links a:hover { color: #241D18; }
-    .footer-seo {
-      position: relative; max-width: 1380px; margin: 0 auto;
-      padding: 0 clamp(20px,5vw,64px) 28px;
-      display: flex; flex-wrap: wrap; gap: 8px 22px;
-      font-size: 12px; font-weight: 500;
-    }
-    .footer-seo a { color: rgba(139,122,105,0.75); }
-    .footer-seo a:hover { color: #6B5D52; }
   </style>
 </head>
 <body>
@@ -372,6 +364,7 @@
       <a class="nav-link" href="#ways-g">Ways to earn</a>
       <a class="nav-link" href="#how-g">How it works</a>
       <a class="nav-link" href="#faq-g">Questions</a>
+      <a class="nav-link" href="/social-media">Social media</a>
       <a class="cta-gradient" href="/join">Start earning</a>
     </nav>
   </header>
@@ -433,17 +426,17 @@
             <div class="mock-card">
               <div class="mock-tag" style="color: #B5502C; background: rgba(238,138,95,0.16);">Class</div>
               <div class="title">Beginner's Table</div>
-              <div class="meta">$2,500 · Saturdays</div>
+              <div class="meta">$45 · Saturdays</div>
             </div>
             <div class="mock-card">
               <div class="mock-tag" style="color: #2E5D44; background: rgba(78,150,112,0.16);">Course</div>
               <div class="title">Mahjong in 30 Days</div>
-              <div class="meta">$6,000 · Self-paced</div>
+              <div class="meta">$149 · Self-paced</div>
             </div>
             <div class="mock-card">
               <div class="mock-tag" style="color: #A3405B; background: rgba(194,73,107,0.14);">Boutique</div>
               <div class="title">Silk Tile Pouches</div>
-              <div class="meta">$1,800 · Ships worldwide</div>
+              <div class="meta">$38 · Ships worldwide</div>
             </div>
           </div>
         </div>
@@ -455,7 +448,7 @@
   <section id="ways-g" class="section section-inner">
     <div class="ways-head" data-reveal>
       <h2>Four ways to get paid</h2>
-      <p>Offer one, or all four. Everything lives on your site, and every rupee goes directly to you.</p>
+      <p>Offer one, or all four. Everything lives on your site, and every dollar goes directly to you.</p>
     </div>
     <div class="ways-grid" data-reveal>
       <div class="way-card way-orange">
@@ -544,6 +537,23 @@
     </div>
   </section>
 
+  <!-- SOCIAL MEDIA -->
+  <section id="social-g" class="section">
+    <div class="section-inner" style="max-width: 980px;">
+      <div class="subscribe-card" data-reveal style="max-width: none;">
+        <div class="badge-green">New · Mahjongers Social</div>
+        <h2>Social media, handled</h2>
+        <p class="section-sub">We run your Instagram, Facebook and TikTok — posts, Reels, stories and DMs — so your classes fill up while you teach.</p>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 26px 0 30px; font-size: 14px; font-weight: 700; color: #5C5045;">
+          <span style="background: rgba(255,255,255,0.8); border-radius: 999px; padding: 10px 18px;">Starter · $350/mo</span>
+          <span style="background: rgba(255,255,255,0.8); border-radius: 999px; padding: 10px 18px;">Pro · $750/mo</span>
+          <span style="background: rgba(255,255,255,0.8); border-radius: 999px; padding: 10px 18px;">Max · $1,500/mo</span>
+        </div>
+        <a class="btn-dark" href="/social-media">See social media plans</a>
+      </div>
+    </div>
+  </section>
+
   <!-- NEWSLETTER -->
   <section id="subscribe-g" class="section">
     <div class="subscribe-card" data-reveal>
@@ -551,9 +561,11 @@
       <h2>Mahjong, monetised — in your inbox</h2>
       <p class="section-sub">Tips, creator spotlights, and new ways to earn from the game you love. No spam, unsubscribe anytime.</p>
       <form class="subscribe-form" id="subscribeForm">
-        <input id="subscribeEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+        <input id="subscribeEmail" type="email" placeholder="you@example.com" autocomplete="email" aria-label="Email address" required>
+        <input id="subscribeWebsite" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;">
         <button type="submit" id="subscribeSubmit">Subscribe</button>
       </form>
+      <p style="font-size: 13px; color: #8B7A69; margin: 16px 0 0;">See our <a href="/privacy" style="color: #B5502C; text-decoration: underline;">Privacy Policy</a>.</p>
     </div>
   </section>
 
@@ -577,17 +589,11 @@
       <a href="/#how-g">How</a>
       <a href="/#faq-g">FAQ</a>
       <a href="/#subscribe-g">Newsletter</a>
+      <a href="/social-media">Social media</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
     </div>
   </footer>
-  <div class="footer-seo">
-    <a href="/mahjong-teacher-website">Teacher websites</a>
-    <a href="/mahjong-affiliate-program">Affiliate program</a>
-    <a href="/sell-mahjong-tiles">Sell mahjong tiles</a>
-    <a href="/host-mahjong-events">Host events</a>
-    <a href="/sell-mahjong-tutorials">Sell tutorials</a>
-    <a href="/creator-branded-mahjong-tiles">Creator tile lines</a>
-    <a href="/calculator">Revenue calculator</a>
-  </div>
 </div>
 
 <script>
@@ -634,13 +640,14 @@
       const response = await fetch("/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: document.querySelector("#subscribeEmail").value.trim() })
+        body: JSON.stringify({ email: document.querySelector("#subscribeEmail").value.trim(), website: document.querySelector("#subscribeWebsite").value })
       });
-      if (!response.ok) throw new Error("Request failed");
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "Something went wrong — try again");
       button.textContent = "You're in — check your inbox";
     } catch (error) {
       button.disabled = false;
-      button.textContent = "Something went wrong — try again";
+      button.textContent = error.message || "Something went wrong — try again";
     }
   });
 
